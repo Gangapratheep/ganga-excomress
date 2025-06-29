@@ -75,4 +75,5 @@ def checkout():
     return render_template('checkout.html', cart=cart, total=total)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
