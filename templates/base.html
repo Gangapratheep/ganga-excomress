@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ganga Excomress - {% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="logo">Ganga Excomress</a>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('products') }}">Products</a></li>
+          <li class="cart-icon">
+            <a href="{{ url_for('view_cart') }}">
+              Cart
+              {% if 'cart' in session and session['cart'] %}
+                <span class="cart-count">{{ session['cart']|length }}</span>
+              {% endif %}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Ganga Excomress</h3>
+          <p>Your one-stop destination for quality electronics and accessories at competitive prices.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('products') }}">Products</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <ul>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Return Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Ganga Excomress. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

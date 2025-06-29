@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<h1>Checkout</h1>
+
+<div class="cart-container">
+  <div class="cart-items" style="flex: 2;">
+    <h2 style="margin-bottom: 1.5rem;">Order Summary</h2>
+    {% for item in cart %}
+    <div class="cart-item">
+      <img src="{{ item.image }}" alt="{{ item.name }}" class="cart-item-image">
+      <div class="cart-item-details">
+        <h3 class="cart-item-title">{{ item.name }}</h3>
+        <p class="cart-item-price">${{ "%.2f"|format(item.price) }} x {{ item.quantity }}</p>
+        <p>Total: ${{ "%.2f"|format(item.price * item.quantity) }}</p>
+      </div>
+    </div>
+    {% endfor %}
+    
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
+      <div class="summary-row">
+        <span>Subtotal:</span>
+        <span>${{ "%.2f"|format(total) }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping:</span>
+        <span>Free</span>
+      </div>
+      <div class="summary-row">
+        <span>Tax (8%):</span>
+        <span>${{ "%.2f"|format(total * 0.08) }}</span>
+      </div>
+      <div class="summary-row summary-total">
+        <span>Total:</span>
+        <span>${{ "%.2f"|format(total * 1.08) }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="cart-summary" style="width: 100%; max-width: 500px;">
+    <h2 style="margin-bottom: 1.5rem;">Shipping Information</h2>
+    <form style="display: grid; gap: 1rem;">
+      <div>
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+      </div>
+      
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+      </div>
+      
+      <div>
+        <label for="address">Shipping Address</label>
+        <textarea id="address" rows="3" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label for="city">City</label>
+          <input type="text" id="city" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+        
+        <div>
+          <label for="zip">ZIP Code</label>
+          <input type="text" id="zip" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+      </div>
+      
+      <h3 style="margin: 1.5rem 0 1rem;">Payment Information</h3>
+      
+      <div>
+        <label for="card">Card Number</label>
+        <input type="text" id="card" placeholder="1234 5678 9012 3456" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+      </div>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label for="expiry">Expiry Date</label>
+          <input type="text" id="expiry" placeholder="MM/YY" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+        
+        <div>
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" placeholder="123" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-block" style="margin-top: 1.5rem;">Place Order</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<h1>Your Shopping Cart</h1>
+
+{% if cart %}
+<div class="cart-container">
+  <div class="cart-items">
+    {% for item in cart %}
+    <div class="cart-item">
+      <img src="{{ item.image }}" alt="{{ item.name }}" class="cart-item-image">
+      <div class="cart-item-details">
+        <h3 class="cart-item-title">{{ item.name }}</h3>
+        <p class="cart-item-price">${{ "%.2f"|format(item.price) }}</p>
+        <div style="margin: 0.5rem 0;">
+          <span>Quantity: {{ item.quantity }}</span>
+        </div>
+        <a href="{{ url_for('remove_from_cart', product_id=item.id) }}" 
+           style="color: #e63946; text-decoration: none;">Remove</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <div class="cart-summary">
+    <h3>Order Summary</h3>
+    <div class="summary-row">
+      <span>Subtotal:</span>
+      <span>${{ "%.2f"|format(total) }}</span>
+    </div>
+    <div class="summary-row">
+      <span>Shipping:</span>
+      <span>Free</span>
+    </div>
+    <div class="summary-row">
+      <span>Tax:</span>
+      <span>${{ "%.2f"|format(total * 0.08) }}</span>
+    </div>
+    <div class="summary-row summary-total">
+      <span>Total:</span>
+      <span>${{ "%.2f"|format(total * 1.08) }}</span>
+    </div>
+    <a href="{{ url_for('checkout') }}" class="btn btn-block" style="margin-top: 1.5rem;">Proceed to Checkout</a>
+    <a href="{{ url_for('products') }}" style="display: block; text-align: center; margin-top: 1rem;">
+      Continue Shopping
+    </a>
+  </div>
+</div>
+{% else %}
+<div style="text-align: center; padding: 3rem;">
+  <h2>Your cart is empty</h2>
+  <p style="margin: 1rem 0 2rem;">Start adding some products!</p>
+  <a href="{{ url_for('products') }}" class="btn">Browse Products</a>
+</div>
+{% endif %}
+{% endblock %}
